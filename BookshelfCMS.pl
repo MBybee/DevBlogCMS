@@ -62,7 +62,7 @@ setStylepath($StylePath);
 setImagepath($ImagePath);
 useIndex(1);
 
-# Get the config and prepare the filesystem to write out our chapter
+# Get the config and prepare the filesystem to write out our entry
 foreach my $dir ( @ARGV ) {
 	#print "Is $dir a directory or a file?\n";
 	if ( -d $dir ) {
@@ -76,7 +76,7 @@ foreach my $dir ( @ARGV ) {
 			if ( -d $path ) { next; }
 			elsif( $file =~ m/txt|html/ ){				
 				print "Importing $path\n";
-				if ( !initChapter($path) ) { die "Unable to create chapter: $!"; }
+				if ( !initChapter($path) ) { die "Unable to create entry: $!"; }
 				#writeChapter($path);
 			}
 		}
@@ -100,7 +100,7 @@ foreach my $dir ( @ARGV ) {
 	else {
 		foreach ( sort(@ARGV) ) {
 			print "Processing $_\n";
-			if ( !initChapter($_) ){ die "Unable to create chapter: $!"; }
+			if ( !initChapter($_) ){ die "Unable to create entry: $!"; }
 		}
 		foreach ( @ARGV ) {
 			print "Writing $_\n";

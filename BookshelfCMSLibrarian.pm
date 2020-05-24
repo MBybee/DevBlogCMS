@@ -42,7 +42,7 @@ our $_cover		= 'cover.png';
 our $_title		= 'default-book';
 our $_subtitle		= '';
 our $_chapter		= '1';
-our $_chapname		= 'Chapter 1';
+our $_entryname		= 'Chapter 1';
 our $_subchapter	= '';
 our $_divider		= '';
 our $_genre1		= 'adventure';
@@ -108,24 +108,24 @@ sub initChapter {
 	# If this is a page instead of a book section, hop on over
 	if( defined $_config{'page'}{'name'} ){ initPage(); return 1; }
 	
-	# Doing a concat so that we can handle unix or windows output paths. Also different if useindex: chapter-1.html or chapter-1/index.html
+	# Doing a concat so that we can handle unix or windows output paths. Also different if useindex: entry-1.html or entry-1/index.html
 	if( $_useindex == 1 ){
 	    my $__path;
-		if( $_config{'book'}{'chapter'} =~ /^[+-]?\d+$/ ){
-			$__path = File::Spec->catfile($_config{'book'}{'url'}, "chapter-$_config{'book'}{'chapter'}");
+		if( $_config{'book'}{'entry'} =~ /^[+-]?\d+$/ ){
+			$__path = File::Spec->catfile($_config{'book'}{'url'}, "entry-$_config{'book'}{'entry'}");
 			$_config{'book'}{'current'}{'filename'} = File::Spec->catfile($__path, "index.html");
 			$_config{'book'}{'current'}{'url'} = "$__path/";
 			#print "Path = $__path\n";
 		}
 		else{ 
-			$__path = File::Spec->catfile($_config{'book'}{'url'}, "$_config{'book'}{'chapter'}");
+			$__path = File::Spec->catfile($_config{'book'}{'url'}, "$_config{'book'}{'entry'}");
 			$_config{'book'}{'current'}{'filename'}  = File::Spec->catfile($__path, "index.html");
 			$_config{'book'}{'current'}{'url'} = "$__path/";
 			#print "Path = $_config{'book'}{'url'} \n";
 		}
-		$_book{'chapters'}{$_config{'book'}{'order'}}{'url'} = $_config{'book'}{'current'}{'url'};
-		$_book{'chapters'}{$_config{'book'}{'order'}}{'chapname'} = $_config{'book'}{'chapname'};
-		$_book{'chapters'}{$_config{'book'}{'order'}}{'subchapter'} = $_config{'book'}{'subchapter'}; 
+		$_book{'entries'}{$_config{'book'}{'order'}}{'url'} = $_config{'book'}{'current'}{'url'};
+		$_book{'entries'}{$_config{'book'}{'order'}}{'entryname'} = $_config{'book'}{'entryname'};
+		$_book{'entries'}{$_config{'book'}{'order'}}{'subchapter'} = $_config{'book'}{'subchapter'}; 
 		
 		
 		
@@ -134,12 +134,12 @@ sub initChapter {
 		else{ mkpath $__path or die "Unable to create book directory $__path: $!"; }
 	}
 	else{  
-		if( $_config{'book'}{'chapter'} =~ /^[+-]?\d+$/ ){ $_config{'book'}{'current'}{'filename'} = File::Spec->catfile($_config{'book'}{'url'}, "chapter-$_config{'book'}{'chapter'}.html");}
-		else{ $_config{'book'}{'current'}{'filename'} = File::Spec->catfile($_config{'book'}{'url'}, "$_config{'book'}{'chapter'}.html"); }
+		if( $_config{'book'}{'entry'} =~ /^[+-]?\d+$/ ){ $_config{'book'}{'current'}{'filename'} = File::Spec->catfile($_config{'book'}{'url'}, "entry-$_config{'book'}{'entry'}.html");}
+		else{ $_config{'book'}{'current'}{'filename'} = File::Spec->catfile($_config{'book'}{'url'}, "$_config{'book'}{'entry'}.html"); }
 		
-		$_book{'chapters'}{$_config{'book'}{'order'}}{'url'} = $_config{'book'}{'current'}{'filename'};
+		$_book{'entries'}{$_config{'book'}{'order'}}{'url'} = $_config{'book'}{'current'}{'filename'};
 		$_config{'book'}{'current'}{'url'} = $_config{'book'}{'current'}{'filename'};
-		$_book{'chapters'}{$_config{'book'}{'order'}}{'chapname'} = $_config{'book'}{'chapname'};
+		$_book{'entries'}{$_config{'book'}{'order'}}{'entryname'} = $_config{'book'}{'entryname'};
 		
 		# If the path doesn't exist, try to create it
 		if( -d $_config{'book'}{'url'} ){ return 1; }
@@ -213,30 +213,30 @@ sub writeChapter {
 	$_config{'book'}{'body'} = $__body;
 	my @__teaser = split/<\!-- TEASER_END -->/,$_config{'book'}{'body'};
 	# Seems to be slightly faster than doing a =~ with discard
-	$_book{'chapters'}{$_config{'book'}{'order'}}{'teaser'} =  $__teaser[0];
-	if( $__teaser[1] ne "" ){ $_book{'chapters'}{$_config{'book'}{'order'}}{'more'} = 1;} 
-	$_book{'front'}{'url'} = $_book{'chapters'}{'0'}{'url'};
+	$_book{'entries'}{$_config{'book'}{'order'}}{'teaser'} =  $__teaser[0];
+	if( $__teaser[1] ne "" ){ $_book{'entries'}{$_config{'book'}{'order'}}{'more'} = 1;} 
+	$_book{'front'}{'url'} = $_book{'entries'}{'0'}{'url'};
 	
 	# Cheesy hack for it not allowing me to use $__order -1 inside the ref
 	my $__order = $_config{'book'}{'order'} -1;
 	
-	if( defined $_book{'chapters'}{$__order} ){ 
-		$_config{'book'}{'prev'}{'url'} 	= $_book{'chapters'}{$__order}{'url'};
-		$_config{'book'}{'prev'}{'chapname'} 	= $_book{'chapters'}{$__order}{'chapname'};
+	if( defined $_book{'entries'}{$__order} ){ 
+		$_config{'book'}{'prev'}{'url'} 	= $_book{'entries'}{$__order}{'url'};
+		$_config{'book'}{'prev'}{'entryname'} 	= $_book{'entries'}{$__order}{'entryname'};
 	}
 	else{
 		$_config{'book'}{'prev'}{'url'}  	= $_config{'book'}{'url'};
-		$_config{'book'}{'prev'}{'chapname'} 	= $_config{'book'}{'title'};
+		$_config{'book'}{'prev'}{'entryname'} 	= $_config{'book'}{'title'};
 	}
 
 	$__order = $_config{'book'}{'order'} +1;
-	if( defined $_book{'chapters'}{$__order} ){ 
-		$_config{'book'}{'next'}{'url'} 	= $_book{'chapters'}{$__order}{'url'};
-		$_config{'book'}{'next'}{'chapname'} 	= $_book{'chapters'}{$__order}{'chapname'};
+	if( defined $_book{'entries'}{$__order} ){ 
+		$_config{'book'}{'next'}{'url'} 	= $_book{'entries'}{$__order}{'url'};
+		$_config{'book'}{'next'}{'entryname'} 	= $_book{'entries'}{$__order}{'entryname'};
 	}
 	else{
 		$_config{'book'}{'next'}{'url'}  	= $_config{'author'}{'url'};
-		$_config{'book'}{'next'}{'chapname'} 	= $_config{'author'}{'Author page'};
+		$_config{'book'}{'next'}{'entryname'} 	= $_config{'author'}{'Author page'};
 	}
 	
 	#print "Order = $_config{'book'}{'order'}, Next = $_config{'book'}{'next'}{'url'}, prev = $_config{'book'}{'prev'}{'url'}\n";
@@ -251,7 +251,7 @@ sub writeChapter {
 	
 	print "Writing: $_config{'book'}{'current'}{'filename'} with template $_type.tmpl\n";
 	$__template->process("$_type.tmpl", $__vars, $_config{'book'}{'current'}{'filename'}) || die $__template->error();
-	#print Dumper $_book{'chapters'};
+	#print Dumper $_book{'entries'};
 }
 
 sub writeBook {
@@ -260,14 +260,14 @@ sub writeBook {
 	if( defined $_config{'page'}{'name'} ){ print "Skipping writeBook, this is type $_config{'type'}\n"; return 1; }
 	
 	my $__bookfile = File::Spec->catfile($_config{'book'}{'url'},"index.html");
-	print "Now looping through chapters to print main book site\n";
+	print "Now looping through entries to print main book site\n";
 	
-	#print Dumper $_book{'chapters'};
+	#print Dumper $_book{'entries'};
 	# Setting up Next/Prev to go to the right spots
-	$_config{'book'}{'next'}{'url'} 	= $_book{'chapters'}{'0'}{'url'};
-	$_config{'book'}{'next'}{'chapname'} 	= $_config{'book'}{'title'};
+	$_config{'book'}{'next'}{'url'} 	= $_book{'entries'}{'0'}{'url'};
+	$_config{'book'}{'next'}{'entryname'} 	= $_config{'book'}{'title'};
 	$_config{'book'}{'prev'}{'url'}  	= $_config{'author'}{'url'};
-	$_config{'book'}{'prev'}{'chapname'} 	= "Author Page";
+	$_config{'book'}{'prev'}{'entryname'} 	= "Author Page";
 	$_config{'book'}{'copyright'}		= $_copyright;
 	
 	# Stylesheet is presumed to be book relative
@@ -410,7 +410,7 @@ sub readConfig {
 	#our %_config		= (	'book' => { 
 	#						'url'		=> 'default-author/book-1',
 	#						'title'		=> 'Book 1',
-	#						'chapter'	=> 1,
+	#						'entry'		=> 1,
 	#						'subchapter'=> 'Bad Beginning',
 	#						'divider'	=> 'divider1.png',
 	#						'genre1'	=> 'adventure',
@@ -450,8 +450,8 @@ sub readConfig {
 		if( defined $_config{'book'}{'cover'} ){	$_cover 	= $_config{'book'}{'cover'}; }
 		if( defined $_config{'book'}{'title'} ){	$_title 	= $_config{'book'}{'title'}; }
 		if( defined $_config{'book'}{'subtitle'} ){	$_subtitle	= $_config{'book'}{'subtitle'}; }
-		if( defined $_config{'book'}{'chapter'} ){	$_chapter	= $_config{'book'}{'chapter'}; }
-		if( defined $_config{'book'}{'chapname'} ){	$_chapname	= $_config{'book'}{'chapname'}; }else{ $_config{'book'}{'chapname'} = "Chapter $_chapter"; }
+		if( defined $_config{'book'}{'entry'} ){	$_chapter	= $_config{'book'}{'entry'}; }
+		if( defined $_config{'book'}{'entryname'} ){	$_entryname	= $_config{'book'}{'entryname'}; }else{ $_config{'book'}{'entryname'} = "Chapter $_chapter"; }
 		if( defined $_config{'book'}{'subchapter'} ){	$_subchapter	= $_config{'book'}{'subchapter'}; }
 		if( defined $_config{'book'}{'genre1'} ){	$_genre1 	= $_config{'book'}{'genre1'}; }
 		if( defined $_config{'book'}{'genre2'} ){	$_genre2 	= $_config{'book'}{'genre2'}; }

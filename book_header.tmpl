@@ -33,8 +33,8 @@
 		[%- IF config.book.genre4 %]<meta property="article:tag" content="[% config.book.genre4 %]">[%- END %]		
 		[%- IF config.metadata %][% config.metadata %][%- END %]
 		[%- IF config.book.metadata %][% config.book.metadata %][%- END %]
-		<link rel="prev" href="[% config.siteroot %][% config.book.prev.url %]" title="[% config.book.prev.chapname %]" type="text/html">
-		<link rel="next" href="[% config.siteroot %][% config.book.next.url %]" title="[% config.book.next.chapname %]" type="text/html">
+		<link rel="prev" href="[% config.siteroot %][% config.book.prev.url %]" title="[% config.book.prev.entryname %]" type="text/html">
+		<link rel="next" href="[% config.siteroot %][% config.book.next.url %]" title="[% config.book.next.entryname %]" type="text/html">
 		<link rel="prefetch" href="[% config.siteroot %][% config.book.next.url %]" type="text/html">
 	</head>
 	<body>
@@ -45,8 +45,8 @@
             <p><a href="[% config.siteroot %]">[% config.site %] blog</a> for <br /><a href="[% config.siteroot %][% config.book.url %]"> [% config.book.title %] <img src="[% config.siteroot %][% config.book.url %][% config.imagepath %][% config.book.cover %]" alt="[% config.book.title %]" title="[% config.book.title %]"></a><br />Entry by <a href="[% config.siteroot %][% config.author.url %]">[% config.author.name %]</a></p>
         </div>        
     	<nav id="menu" role="navigation" class="sidebar-nav">
-    		[% FOREACH chapter = book.chapters.keys.nsort -%][% IF chapter < 1 -%][% NEXT %][% END -%]
-<a class="sidebar-nav-item" href="[% config.siteroot %][% book.chapters.$chapter.url %]">[% book.chapters.$chapter.chapname %][% IF book.chapters.$chapter.subchapter %] : [% book.chapters.$chapter.subchapter %][% END -%]</a>
+    		[% FOREACH chapter = book.entries.keys.nsort -%][% IF chapter < 1 -%][% NEXT %][% END -%]
+<a class="sidebar-nav-item" href="[% config.siteroot %][% book.entries.$chapter.url %]">[% book.entries.$chapter.entryname %][% IF book.entries.$chapter.subchapter %] : [% book.entries.$chapter.subchapter %][% END -%]</a>
     		[% END -%]<a class="sidebar-nav-item" href="[% config.siteroot %][% config.author.url %]">More by this author</a>
 			<a class="sidebar-nav-item" href="[% config.siteroot %]">Home</a>       
     	<div class="searchform" role="search">
