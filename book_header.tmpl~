@@ -42,7 +42,7 @@
     	<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular styles, `#sidebar-checkbox` for behavior. -->
     	<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
         <div class="sidebar-item">
-            <p><a href="[% config.siteroot %]">[% config.site %] blog</a> for <br /><a href="[% config.siteroot %][% config.book.url %]"> [% config.book.title %] <img src="[% config.siteroot %][% config.book.url %][% config.imagepath %][% config.book.cover %]" alt="[% config.book.title %]" title="[% config.book.title %]"></a><br />Entry by <a href="[% config.siteroot %][% config.author.url %]">[% config.author.name %]</a></p>
+            <p><a href="[% config.siteroot %]">[% config.site %] blog</a> for <br /><a href="[% config.siteroot %][% config.book.url %]"> [% config.book.title %] <img src="[% config.siteroot %][% config.book.url %][% config.imagepath %][% config.book.cover %]" alt="[% config.book.title %]" title="[% config.book.title %]"></a><br /><a href="[% config.siteroot %][% config.author.url %]">Entry by [% config.author.name %]</a></p>
         </div>        
     	<nav id="menu" role="navigation" class="sidebar-nav">
     		[% FOREACH chapter = book.chapters.keys.nsort -%][% IF chapter < 1 -%][% NEXT %][% END -%]

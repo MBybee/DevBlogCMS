@@ -251,7 +251,7 @@ sub writeChapter {
 	
 	print "Writing: $_config{'book'}{'current'}{'filename'} with template $_type.tmpl\n";
 	$__template->process("$_type.tmpl", $__vars, $_config{'book'}{'current'}{'filename'}) || die $__template->error();
-	#print Dumper $_book{'chapters'};
+	print Dumper $_book{'chapters'};
 }
 
 sub writeBook {
