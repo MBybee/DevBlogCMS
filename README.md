@@ -8,19 +8,11 @@ Typically requires the installation of the Template, JSON, and Roman perl module
 
 The other perl libs used are generally pre-installed, but all dependencies are listed here for reference:
 POSIX
-
 Getopt::Long
-
 Exporter
-
 JSON
-
 File::Path
-
 File::Spec;
-
 File::Copy;
-
 Template;
-
 Data::Dumper;
