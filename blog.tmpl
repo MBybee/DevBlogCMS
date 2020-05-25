@@ -27,7 +27,7 @@
     					<div id="chapter_toc" class="toc">
 								<p><a href="[% config.siteroot %][% config.book.url %]cover/">Cover Page</a></p>
 								<p><a href="[% config.siteroot %][% book.front.url %]">Project Notes</a></p>
-								[% FOREACH chap = book.entries.keys.nsort -%][% IF chap < 1 -%][% NEXT %][% END -%]
+								[% FOREACH chap = book.entries.keys.nsort -%][% IF chap < -1000 -%][% NEXT %][% END -%]
 								<p><a href="[% config.siteroot %][% book.entries.$entry.url %]">[% book.entries.$chap.entryname %][% IF book.entries.$entry.subchapter %] : [% book.entries.$entry.subchapter %][% END -%]</a></p>
     						[%- END %]
 				</div>

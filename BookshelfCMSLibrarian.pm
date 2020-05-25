@@ -346,10 +346,15 @@ sub getHTML {
 	s/\’/'/g;
 	s/  / /g;
 	
-	# Clean up empty paragraph tags
+	# Clean up empty/duplicate paragraph tags
 	s/<p><\/p>/<br \/>/g;
 	s/<p> <\/p>/<br \/>/g;
+	s/<\/p><\/p>/<\/p>/g;
 	s/^<p>$/<br \/>/g;
+	
+	# Don't add a paragraph to comments or the body
+	s/--><\/p>/-->/g;
+	s/<div class="body"><\/p>/<div class="body">/g;
 	
 	s/\”/"/g;
 	s/\“/"/g;
