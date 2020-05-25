@@ -45,7 +45,7 @@
             <p><a href="[% config.siteroot %]">[% config.site %] blog</a> for <br /><a href="[% config.siteroot %][% config.book.url %]"> [% config.book.title %] <img src="[% config.siteroot %][% config.book.url %][% config.imagepath %][% config.book.cover %]" alt="[% config.book.title %]" title="[% config.book.title %]"></a><br />Entry by <a href="[% config.siteroot %][% config.author.url %]">[% config.author.name %]</a></p>
         </div>        
     	<nav id="menu" role="navigation" class="sidebar-nav">
-    		[% FOREACH chapter = book.entries.keys.nsort -%][% IF chapter < 1 -%][% NEXT %][% END -%]
+    		[% FOREACH entry = book.entries.keys.nsort -%][% IF entry < 1 -%][% NEXT %][% END -%]
 <a class="sidebar-nav-item" href="[% config.siteroot %][% book.entries.$chapter.url %]">[% book.entries.$chapter.entryname %][% IF book.entries.$chapter.subchapter %] : [% book.entries.$chapter.subchapter %][% END -%]</a>
     		[% END -%]<a class="sidebar-nav-item" href="[% config.siteroot %][% config.author.url %]">More by this author</a>
 			<a class="sidebar-nav-item" href="[% config.siteroot %]">Home</a>       

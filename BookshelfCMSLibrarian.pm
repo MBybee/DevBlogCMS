@@ -276,7 +276,7 @@ sub writeBook {
 	my $__template = Template->new();
 	my $__vars = { config => \%_config, book => \%_book, library => \%_library, date => $_date, style => $__style };
 	print "Writing to book: $__bookfile\n";
-	$__template->process("book.tmpl", $__vars, $__bookfile) || die $__template->error();
+	$__template->process("blog.tmpl", $__vars, $__bookfile) || die $__template->error();
 	
 	# Update author page is done from the calling script
 	# 

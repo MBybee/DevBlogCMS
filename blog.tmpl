@@ -1,25 +1,25 @@
-[%  INCLUDE book_header.tmpl %]
+[%  INCLUDE blog_header.tmpl %]
 			<div class="posts">
-				[% FOREACH chapter = book.entries.keys.nsort %][% IF book.entries.$chapter.entryname == 'Entries' -%][% NEXT %][% END -%]
+				[% FOREACH entry = book.entries.keys.nsort %][% IF book.entries.$entry.entryname == 'Entries' -%][% NEXT %][% END -%]
     			<article class="post h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article">
     				<header>
     					<div class="p-name p-author h-card" title="[% config.author.name %]">
-							<span class="dateline"><a href="[% config.siteroot %][% book.entries.$chapter.url %]" rel="bookmark"><time class="post-date published dt-published" datetime="[% date %]" title="[% date %]"></time></a></span>
+							<span class="dateline"><a href="[% config.siteroot %][% book.entries.$entry.url %]" rel="bookmark"><time class="post-date published dt-published" datetime="[% date %]" title="[% date %]"></time></a></span>
         				</div>
     				</header>
-    				[% IF book.entries.$chapter.entryname == 'cover' -%]<h2 class="chapter post-title p-name u-url"><span style="visibility:hidden">-</span></h2>
+    				[% IF book.entries.$entry.entryname == 'cover' -%]<h2 class="chapter post-title p-name u-url"><span style="visibility:hidden">-</span></h2>
     					<div class="p-summary entry-summary"><a href="../../[% book.front.url %]"><img class="bookcover container content" alt="[% config.book.title %]" src="[% config.imagepath %][% config.book.cover %]" title="[% config.book.title %]" /></a></div>[% ELSE %]    				
-    				<h2 class="chapter post-title p-name u-url"><a href="../../[% book.entries.$chapter.url %]">[% IF book.entries.$chapter.entryname == '' -%]<span style="visibility:hidden">-</span>[% ELSE %][% book.entries.$chapter.entryname %][% END -%]</a></h2>
+    				<h2 class="chapter post-title p-name u-url"><a href="../../[% book.entries.$entry.url %]">[% IF book.entries.$entry.entryname == '' -%]<span style="visibility:hidden">-</span>[% ELSE %][% book.entries.$entry.entryname %][% END -%]</a></h2>
     				<div class="p-summary entry-summary">		
-						[% book.entries.$chapter.teaser %]
-						[% IF book.entries.$chapter.more == '1' %]<a href="../../[% book.entries.$chapter.url %]">Read More...</a></div>[% END -%]		
+						[% book.entries.$entry.teaser %]
+						[% IF book.entries.$entry.more == '1' %]<a href="../../[% book.entries.$entry.url %]">Read More...</a></div>[% END -%]		
     				</div>[% END %]
 				</article>
 				[% END %]
 				<article class="post h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article">
     				<header>
     					<div class="p-name p-author h-card" title="[% config.author.name %]">
-							<span class="dateline"><a href="[% config.siteroot %][% book.entries.$chapter.url %]" rel="bookmark"><time class="post-date published dt-published" datetime="[% date %]" title="[% date %]"></time></a></span>
+							<span class="dateline"><a href="[% config.siteroot %][% book.entries.$entry.url %]" rel="bookmark"><time class="post-date published dt-published" datetime="[% date %]" title="[% date %]"></time></a></span>
         				</div>
     				</header>
     				<h2 class="chapter post-title p-name u-url"><a href="../../toc/index.html">Entries</a></h2>
@@ -28,7 +28,7 @@
 								<p><a href="[% config.siteroot %][% config.book.url %]cover/">Cover Page</a></p>
 								<p><a href="[% config.siteroot %][% book.front.url %]">Project Notes</a></p>
 								[% FOREACH chap = book.entries.keys.nsort -%][% IF chap < 1 -%][% NEXT %][% END -%]
-								<p><a href="[% config.siteroot %][% book.entries.$chapter.url %]">[% book.entries.$chap.entryname %][% IF book.entries.$chapter.subchapter %] : [% book.entries.$chapter.subchapter %][% END -%]</a></p>
+								<p><a href="[% config.siteroot %][% book.entries.$entry.url %]">[% book.entries.$chap.entryname %][% IF book.entries.$entry.subchapter %] : [% book.entries.$entry.subchapter %][% END -%]</a></p>
     						[%- END %]
 				</div>
     				</div>
@@ -39,4 +39,4 @@
 	<br />
 	<label for="sidebar-checkbox" class="sidebar-toggle"></label>
 	</body>
-[% INCLUDE book_footer.tmpl %]
+[% INCLUDE blog_footer.tmpl %]
