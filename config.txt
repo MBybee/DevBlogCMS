@@ -4,4 +4,5 @@ Site;;Your Site;;
 Logo;;yourlogo.svg;;
 SiteCopy;;<figure><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img class="logo" alt="Creative Commons License" src="https://yoursite.org/images/cc-by-sa.svg" width="80"></a></figure><p><a property="cc:attributionName" href="https://yoursite.org">yoursite.org blogs</a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.');;
 StylePath;;css/;;
+StyleRoot;;yoursite-core.css;;
 ImagePath;;images/;;

@@ -35,6 +35,7 @@ my $Site	= 'yoursite';
 my $Logo	= 'yourlogo.svg';
 my $SiteCopy	= '<figure><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img class="logo" alt="Creative Commons License" src="https://yoursite.org/images/cc-by-sa.svg" width="80"></a></figure><p><a property="cc:attributionName" href="https://yoursite.org">yoursite.org blogs</a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.';
 my $StylePath	= 'css/';
+my $StyleRoot	= 'yoursite-core.css'; 
 my $ImagePath	= 'images/';
 my $config_file = "config.txt";
 if ( -e $config_file ) { 
@@ -45,12 +46,12 @@ if ( -e $config_file ) {
 		elsif ( ($line[0] eq "Twitter") && ($line[1] ne "") ){ 		$Twitter 	= $line[1]; }
 		elsif ( ($line[0] eq "Site") && ($line[1] ne "") ){ 		$Site 		= $line[1]; }
 		elsif ( ($line[0] eq "SiteCopy") && ($line[1] ne "") ){ 	$SiteCopy 	= $line[1]; }
+		elsif ( ($line[0] eq "StyleRoot") && ($line[1] ne "") ){ 	$StyleRoot 	= $line[1]; }
 		elsif ( ($line[0] eq "StylePath") && ($line[1] ne "") ){ 	$StylePath 	= $line[1]; }
 		elsif ( ($line[0] eq "ImagePath") && ($line[1] ne "") ){ 	$ImagePath 	= $line[1]; }
 	}
 	close $fh;
 }
-
 
 # Set these values as required for the site
 setSiteroot($SiteRoot);
@@ -59,6 +60,7 @@ setSite($Site);
 setLogo($Logo);
 setSitecopy($SiteCopy);
 setStylepath($StylePath);
+setStyleroot($SiteRoot . $StylePath . $StyleRoot);
 setImagepath($ImagePath);
 useIndex(1);
 

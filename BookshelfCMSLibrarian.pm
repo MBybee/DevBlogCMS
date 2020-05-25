@@ -16,7 +16,7 @@ use Data::Dumper;
 
 our $VERSION	= "0.00.01";
 our @ISA	= qw(Exporter);
-our @EXPORT	= qw(version debug libfile status author title subtitle chapter loadLibrary updateLibrary initChapter writeChapter writeBook writeAuthor getHTML getHeader getFooter setSiteroot setSite setSitecopy setLogo setImagepath setStylepath getStylesheet getMetadata getType getAuthor getTitle getSubtitle getChapter getSubchapter getDivider getGenre1 getGenre2 getGenre3 getGenre4 getRelated getFiction getCopyright getBlurb setTwitter useIndex moveFile moveDir);
+our @EXPORT	= qw(version debug libfile status author title subtitle chapter loadLibrary updateLibrary initChapter writeChapter writeBook writeAuthor getHTML getHeader getFooter setSiteroot setStyleroot setSite setSitecopy setLogo setImagepath setStylepath getStylesheet getMetadata getType getAuthor getTitle getSubtitle getChapter getSubchapter getDivider getGenre1 getGenre2 getGenre3 getGenre4 getRelated getFiction getCopyright getBlurb setTwitter useIndex moveFile moveDir);
 
 # Semi-private vars
 our $_date		= strftime "%Y-%m-%d", localtime;
@@ -30,7 +30,7 @@ our $_sitecopy		= "All text and graphics on this site are Copyright &copy; $_sit
 our $_stylepath		= 'css/';
 our $_imagepath		= 'images/';
 our $_rootstyle		= $_siteroot . $_stylepath . 'yoursite-core.css';
-our $_stylesheet	= $_stylepath . 'book.css';
+our $_stylesheet	= $_stylepath . 'blog.css';
 our $_metadata		= '';
 our $_metabook		= '';
 our $_type		= 'book';
@@ -41,7 +41,7 @@ our $_twitter		= '@handle';
 our $_cover		= 'cover.png';
 our $_title		= 'default-book';
 our $_subtitle		= '';
-our $_chapter		= '1';
+our $_entry		= '1';
 our $_entryname		= 'Chapter 1';
 our $_subchapter	= '';
 our $_divider		= '';
@@ -61,7 +61,6 @@ our %_book;
 our $_page;
 
 
-
 #print "bookshelf-cms-librarian.pm version: $VERSION\n";
 
 # Blocks
@@ -73,6 +72,7 @@ sub setSite		{ $_site	= $_[0];	printf "Site set to $_site\n";			return $_site;		
 sub setLogo		{ $_logo	= $_[0];	printf "Logo set to $_logo\n";			return $_logo;		}
 sub setSitecopy		{ $_sitecopy	= $_[0];	printf "Site Copyright set to $_sitecopy\n";	return $_sitecopy;	}
 sub setSiteroot		{ $_siteroot	= $_[0];	printf "Site Root set to $_siteroot\n";		return $_siteroot;	}
+sub setStyleroot	{ $_rootstyle	= $_[0];	printf "Style Root set to $_rootstyle\n";	return $_rootstyle;	}
 sub setStylepath	{ $_stylepath	= $_[0];	printf "Stylepath set to $_stylepath\n";	return $_stylepath;	}
 sub setImagepath	{ $_imagepath	= $_[0];	printf "Imagepath set to $_imagepath\n";	return $_imagepath;	}
 sub setTwitter		{ $_twitter	= $_[0];	printf "Twitter set to $_twitter\n";		return $_twitter;	}
@@ -84,7 +84,7 @@ sub getType		{ return $_type;	}
 sub getAuthor		{ return $_author;	}
 sub getTitle		{ return $_title; 	}
 sub getSubtitle		{ return $_subtitle; 	}
-sub getChapter		{ return $_chapter; 	}
+sub getChapter		{ return $_entry; 	}
 sub getSubchapter	{ return $_subchapter; 	}
 sub getDivider		{ return $_divider; 	}
 sub getGenre1		{ return $_genre1;	}
@@ -411,7 +411,7 @@ sub readConfig {
 	#						'url'		=> 'default-author/book-1',
 	#						'title'		=> 'Book 1',
 	#						'entry'		=> 1,
-	#						'subchapter'=> 'Bad Beginning',
+	#						'subchapter'	=> 'Bad Beginning',
 	#						'divider'	=> 'divider1.png',
 	#						'genre1'	=> 'adventure',
 	#						'genre2'	=> 'fantasy',
@@ -430,7 +430,8 @@ sub readConfig {
 	
 	my $__json 	= decode_json (@_[0]);
 	%_config 	= %{$__json};
-	$_rootstyle 	= $_siteroot . $_stylepath . 'yoursite-core.css';
+	#$_rootstyle 	= $_siteroot . $_stylepath . 'yoursite-core.css';
+
 	
 	if( defined $_config{'type'} ){ 			$_type 		= $_config{'type'}; }
 	if( defined $_config{'rootstyle'} ){			$_rootstyle	= $_config{'rootstyle'}; 	}else{ $_config{'rootstyle'} = $_rootstyle; }
@@ -450,8 +451,8 @@ sub readConfig {
 		if( defined $_config{'book'}{'cover'} ){	$_cover 	= $_config{'book'}{'cover'}; }
 		if( defined $_config{'book'}{'title'} ){	$_title 	= $_config{'book'}{'title'}; }
 		if( defined $_config{'book'}{'subtitle'} ){	$_subtitle	= $_config{'book'}{'subtitle'}; }
-		if( defined $_config{'book'}{'entry'} ){	$_chapter	= $_config{'book'}{'entry'}; }
-		if( defined $_config{'book'}{'entryname'} ){	$_entryname	= $_config{'book'}{'entryname'}; }else{ $_config{'book'}{'entryname'} = "Chapter $_chapter"; }
+		if( defined $_config{'book'}{'entry'} ){	$_entry		= $_config{'book'}{'entry'}; }
+		if( defined $_config{'book'}{'entryname'} ){	$_entryname	= $_config{'book'}{'entryname'}; }else{ $_config{'book'}{'entryname'} = "Entry $_entry"; }
 		if( defined $_config{'book'}{'subchapter'} ){	$_subchapter	= $_config{'book'}{'subchapter'}; }
 		if( defined $_config{'book'}{'genre1'} ){	$_genre1 	= $_config{'book'}{'genre1'}; }
 		if( defined $_config{'book'}{'genre2'} ){	$_genre2 	= $_config{'book'}{'genre2'}; }
