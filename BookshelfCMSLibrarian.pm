@@ -351,6 +351,8 @@ sub getHTML {
 	s/<p> <\/p>/<br \/>/g;
 	s/<\/p><\/p>/<\/p>/g;
 	s/^<p>$/<br \/>/g;
+	s/<br \/><\/p>/<br \/>/g;
+	s/<br\/><\/p>/<br \/>/g;
 	
 	# Don't add a paragraph to comments or the body
 	s/--><\/p>/-->/g;
@@ -483,7 +485,7 @@ sub readConfig {
 	# Update copyright if it wasn't set explicitly
 	# this mode doesn't validate right: if( $_copyright eq '' ){ $_config{'book'}{'copyright'} = '<figure><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" class="logo" width="80" src="'. $_siteroot . '/' . $_imagepath . '/cc-by-sa.svg" /></a></figure><p><i><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">' . $_config{'book'}{'title'} . '</span></i> <br /><a xmlns:cc="http://creativecommons.org/ns#" href="' . $_config{'book'}{'url'} .'" property="cc:attributionName" rel="cc:attributionURL">' . $_site . ' Edition</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. <br />Based on a Public Domain work by <a href="' . $_config{'author'}{'url'} . '">'. $_config{'author'}{'name'} . '</a></p>'; $_copyright = $_config{'book'}{'copyright'}; }
 	if( $_copyright eq '' ){ 
-		$_config{'book'}{'copyright'} = '<figure><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" class="logo" width="80" src="'. $_siteroot . '/' . $_imagepath . '/cc-by-sa.svg" /></a></figure><p><i><span>' . $_config{'book'}{'title'} . '</span></i> <br /><a href="' . $_config{'book'}{'url'} .'" property="cc:attributionName" rel="cc:attributionURL">' . $_site . ' blogs</a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. <br />Copyright <a href="' . $_config{'author'}{'url'} . '">'. $_config{'author'}{'name'} . '</a></p>'; 
+		$_config{'book'}{'copyright'} = '<figure><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" class="logo" width="80" src="'. $_siteroot . $_imagepath . 'cc-by-sa.svg" /></a></figure><p><i><span>' . $_config{'book'}{'title'} . '</span></i> <br /><a href="' . $_config{'book'}{'url'} .'" property="cc:attributionName" rel="cc:attributionURL">' . $_site . ' blogs</a> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. <br />Copyright <a href="' . $_config{'author'}{'url'} . '">'. $_config{'author'}{'name'} . '</a></p>'; 
 		$_copyright = $_config{'book'}{'copyright'}; 
 	}
 
