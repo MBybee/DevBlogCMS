@@ -345,6 +345,9 @@ sub getHTML {
 	s/\‘/'/g;
 	s/\’/'/g;
 	s/  / /g;
+	s/<\/li><\/p>/<\/li>/g;
+	s/<\/ul><\/p>/<\/ul>/g;
+	s/<\/ol><\/p>/<\/ol>/g;
 	
 	# Clean up empty/duplicate paragraph tags
 	s/<p><\/p>/<br \/>/g;
