@@ -22,12 +22,10 @@
 							<span class="dateline"><a href="[% config.siteroot %][% book.entries.$entry.url %]" rel="bookmark"><time class="post-date published dt-published" datetime="[% date %]" title="[% date %]"></time></a></span>
         				</div>
     				</header>
-    				<h2 class="chapter post-title p-name u-url"><a href="../../toc/index.html">Entries</a></h2>
+    				<h2 class="chapter post-title p-name u-url"><a href="toc/index.html">Entries</a></h2>
     				<div class="p-summary entry-summary">
     					<div id="chapter_toc" class="toc">
-								<p><a href="[% config.siteroot %][% config.book.url %]cover/">Cover Page</a></p>
-								<p><a href="[% config.siteroot %][% book.front.url %]">Project Notes</a></p>
-								[% FOREACH chap = book.entries.keys.nsort -%][% IF chap < -1000 -%][% NEXT %][% END -%]
+								[% FOREACH chap = book.entries.keys.nsort -%][% IF chap < -100 -%][% NEXT %][% END -%]
 								<p><a href="[% config.siteroot %][% book.entries.$entry.url %]">[% book.entries.$chap.entryname %][% IF book.entries.$entry.subchapter %] : [% book.entries.$entry.subchapter %][% END -%]</a></p>
     						[%- END %]
 				</div>
@@ -38,5 +36,14 @@
 	</div>
 	<br />
 	<label for="sidebar-checkbox" class="sidebar-toggle"></label>
+	<!-- Default Statcounter code -->
+	<script type="text/javascript">
+		var sc_project=###; 
+		var sc_invisible=1; 
+		var sc_security="###"; 
+	</script>
+	<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+	<noscript><div class="statcounter"><a title="Web Analytics Made Easy - StatCounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/###" alt="Web Analytics Made Easy - StatCounter"></a></div></noscript>
+	<!-- End of Statcounter Code -->
 	</body>
 [% INCLUDE blog_footer.tmpl %]
